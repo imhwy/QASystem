@@ -163,7 +163,11 @@ cython_debug/
 
 
 # models
-src/models/Bartpho-fine-tuning-model-for-question-answering/
+src/models/fine-tuned/Bartpho-fine-tuning-model-for-question-answering/
+src/models/pretrained/bartpho-syllable
 
 # vscode
 .vscode/
+
+# datasets
+src/data/UIT-ViQuAD2.0

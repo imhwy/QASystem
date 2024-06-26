@@ -109,9 +109,8 @@ class Service:
         Returns:
             Dataset: The modified dataset.
         """
-        self.data_loader.load_json()
-        dataset_modified = self.data_loader.remove_plausible_answers()
-        return dataset_modified
+        dataset = self.data_loader.load_json()
+        return dataset
 
     def get_trainer(
         self,
@@ -159,13 +158,16 @@ class Service:
         Returns:
             Tuple[Dataset, Dataset]: The preprocessed training and validation datasets.
         """
+        tokenizer = self.get_tokenizer()
         train_dataset = self.data_loader.apply_processing(
             data=dataset_modified,
-            data_group="train"
+            data_group="train",
+            tokenizer=tokenizer
         )
         val_dataset = self.data_loader.apply_processing(
             data=dataset_modified,
-            data_group="validation"
+            data_group="validation",
+            tokenizer=tokenizer
         )
         return train_dataset, val_dataset
 

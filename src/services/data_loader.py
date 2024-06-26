@@ -3,7 +3,6 @@ This module is used for loading data.
 """
 
 from typing import Any
-from copy import deepcopy
 from datasets import (load_dataset,
                       Dataset)
 from transformers import (DefaultDataCollator,
@@ -42,38 +41,18 @@ class DataLoader:
         self.file_path = file_path
         self.max_length = max_length
         self.stride = stride
-        self.dataset = None
 
     def load_json(self) -> Dataset:
         """
         Loads a dataset from a JSON file specified by the file path.
         """
-        self.dataset = load_dataset(path=self.file_path)
-
-    def remove_plausible_answers(self) -> Dataset:
-        """
-        Removes samples with multiple plausible answers from the dataset.
-
-        Returns:
-            Dataset: A dataset with samples having only one plausible answer.
-        """
-        data = deepcopy(self.dataset)
-        data["train"] = data["train"].filter(
+        dataset = load_dataset(path=self.file_path)
+        print(dataset)
+        dataset["train"] = dataset["train"].filter(
             lambda x: len(x["answers"]["text"]) == 1)
-        data["validation"] = data["validation"].filter(
+        dataset["validation"] = dataset["validation"].filter(
             lambda x: len(x["answers"]["text"]) == 1)
-        data["test"] = data["test"].filter(
-            lambda x: len(x["answers"]["text"]) == 1)
-        return data
-
-    def get_dataset(self) -> Dataset:
-        """
-        Returns the loaded dataset.
-
-        Returns:
-            Dataset: The loaded dataset.
-        """
-        return self.dataset
+        return dataset
 
     def preprocess_data(
         self,
@@ -81,14 +60,16 @@ class DataLoader:
         tokenizer: PreTrainedTokenizerFast
     ) -> BatchEncoding:
         """
-        Preprocesses the dataset for training a question-answering model by tokenizing the questions and contexts,
+        Preprocesses the dataset for training a question-answering model 
+        by tokenizing the questions and contexts,
         and creating start and end positions for the answers.
 
         Args:
             data (Dataset): The dataset to be preprocessed.
 
         Returns:
-            Dict: A dictionary containing tokenized inputs and corresponding start and end positions for answers.
+            Dict: A dictionary containing tokenized inputs and 
+            corresponding start and end positions for answers.
         """
         if tokenizer is None:
             raise ValueError("Tokenizer is not found!!!")
@@ -140,14 +121,17 @@ class DataLoader:
     def apply_processing(
         self,
         data: Dataset,
-        data_group: str
+        data_group: str,
+        tokenizer: PreTrainedTokenizerFast
+
     ) -> Any:
         """
         Applies preprocessing to a specified group (train/validation/test) within the dataset.
 
         Args:
             data (Dataset): The dataset to be processed.
-            data_group (str): The group within the dataset to be processed (e.g., 'train', 'validation').
+            data_group (str): The group within the dataset to be processed 
+            (e.g., 'train', 'validation').
 
         Returns:
             Dataset: The preprocessed dataset group.
@@ -155,6 +139,7 @@ class DataLoader:
         group_data = data[data_group].map(
             self.preprocess_data,
             batched=True,
+            fn_kwargs={'tokenizer': tokenizer},
             remove_columns=data[data_group].column_names
         )
         return group_data

@@ -164,7 +164,7 @@ cython_debug/
 
 # models
 src/models/fine-tuned/Bartpho-fine-tuning-model-for-question-answering/
-src/models/pretrained/bartpho-syllable
+src/models/pretrained/bartpho-syllable/
 
 # vscode
 .vscode/

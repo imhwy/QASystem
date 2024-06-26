@@ -146,6 +146,7 @@ class ModelConfig:
             greater_is_better=self.greater_is_better,
             logging_dir=self.logging_dir,
             logging_steps=self.logging_steps,
+            report_to="none"
         )
         return training_args
 

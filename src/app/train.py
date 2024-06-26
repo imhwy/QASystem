@@ -22,7 +22,7 @@ def main():
                         default=1024, help='Max length of tokenized sequence')
     parser.add_argument('-st', '--stride', type=int,
                         default=128, help='Stride size for overlapping tokenized sequence')
-    parser.add_argument('-d', '--database', type=str,
+    parser.add_argument('-db', '--database', type=str,
                         default='data/UITVisqAD2.0', help='The path to database')
     parser.add_argument('-p', '--path', type=str,
                         default='bartpho-syllable', help='The path to fine-tuned model')
@@ -46,7 +46,7 @@ def main():
                         default=4, help='Number of training epochs')
     parser.add_argument('-stl', '--save_total_limit', type=int,
                         default=1, help='Number of total limit')
-    parser.add_argument('-st', '--save_steps', type=int, default=2000,
+    parser.add_argument('-sts', '--save_steps', type=int, default=2000,
                         help='Save checkpoint every X updates steps')
     parser.add_argument('-es', '--eval_steps', type=int,
                         default=2000, help='Evaluate every X updates steps')
@@ -54,7 +54,7 @@ def main():
                         default=True, help='Load the best model at the end')
     parser.add_argument('-uth', '--push_to_hub', type=bool,
                         default=False, help='Push model checkpoints to hub')
-    parser.add_argument('-m', '--metric_for_best_model', type=str,
+    parser.add_argument('-mfbm', '--metric_for_best_model', type=str,
                         default='eval_loss', help='Metric for best model')
     parser.add_argument('-gb', '--greater_is_better', type=bool,
                         default=False, help='Greater is better')

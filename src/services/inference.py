@@ -1,12 +1,12 @@
 """
-
+This module is used for inference.
 """
 import torch
 
 
 class InferenceEngine:
     """
-
+    This module is used for inference.
     """
 
     def __init__(

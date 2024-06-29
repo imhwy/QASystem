@@ -1,0 +1,80 @@
+body {
+    background-color: #283143;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+.container {
+    width: 1000px;
+    background-color: #39455e;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+.container h1 {
+    text-align: center;
+}
+.content {
+    display: flex;
+    justify-content: space-between;
+}
+.left-container {
+    width: 500px;
+    margin-bottom: 20px;
+    margin-right: 30px;
+}
+.left-container label {
+    display: block;
+    margin-bottom: 5px;
+}
+.left-container textarea, .left-container input, .left-container select {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+.left-container textarea {
+    height: 120px;
+}
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    box-sizing: border-box;
+}
+.button-group button {
+    width: 48%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+.button-group .submit-btn {
+    background-color: #2ecc71;
+    color: white;
+}
+.button-group .clear-btn {
+    background-color: #e74c3c;
+    color: white;
+}
+.right-container {
+    width: calc(100% - 530px);
+}
+.answer {
+    background-color: #4a576d;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 5px;
+    height: 77.5%;
+}
+#category {
+    padding-left: 5px;
+}

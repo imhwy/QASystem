@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question Answering Bot</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Question Answering Bot</h1>
+        <div class="content">
+            <div class="left-container">
+                <label for="context">Context</label>
+                <textarea id="context" placeholder="Enter context here..."></textarea>
+                <label for="question">Question</label>
+                <input type="text" id="question" placeholder="Enter your question here...">
+                <label for="category">Category</label>
+                <select id="category">
+                    <option value="general">General</option>
+                    <option value="science">Science</option>
+                    <option value="technology">Technology</option>
+                    <option value="history">History</option>
+                </select>
+                <div class="button-group">
+                    <button class="clear-btn" onclick="clearFields()">Clear</button>
+                    <button class="submit-btn" onclick="submitForm()">Submit</button>
+                </div>
+            </div>
+            <div class="right-container">
+                <label for="answer">Answer</label>
+                <div class="answer" id="answer">
+                    <!-- Answer will be displayed here -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function clearFields() {
+            document.getElementById('context').value = '';
+            document.getElementById('question').value = '';
+            document.getElementById('category').value = '';
+        }
+
+        async function submitForm() {
+            const context = document.getElementById('context').value;
+            const question = document.getElementById('question').value;
+            const category = document.getElementById('category').value;
+            console.log(category)
+            try {
+                const response = await fetch('/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ context, question, category}),
+                });
+                const data = await response.json();
+                console.log(data)
+                document.getElementById('answer').textContent = data.answer;
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An unexpected error occurred.');
+            }
+        }
+    </script>
+</body>
+</html>
